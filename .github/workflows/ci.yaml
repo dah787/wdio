@@ -1,0 +1,24 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 18
+        - name: Install
+          run: npm install
+        - name: Test
+          env: # added on 06.10.2022
+            BROWSERSTACK_USER: ${{ secrets.BS_USER }} # added on 06.10.2022
+            BROWSERSTACK_KEY: ${{ secrets.BS_KEY }} # added on 06.10.2022
+          # run: npm run test:local # commented on 06.10.2022
+          run: npx wdio wdio.bs.conf.js --spec test\specs\delete-note-screen.spec.js # added on 06.10.2022
+        - uses: actions/upload-artifact@v1
+          if: failure()
+          with:
+            name: logs
+            path: logs
