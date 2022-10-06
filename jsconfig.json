@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "types": [
+            "node",
+            "webdriverio/async", // modified on 04.10.2022 - ".../sync"
+            "@wdio/mocha-framework"
+        ],
+        "module": "commonjs" // added on 04.10.2022
+    },
+    "exclude": [ // added on 04.10.2022
+        "node_modules"
+    ]
+}
